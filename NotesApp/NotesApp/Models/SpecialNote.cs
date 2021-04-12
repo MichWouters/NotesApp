@@ -6,9 +6,9 @@ namespace NotesApp.Models
 {
     public class SpecialNote : Note
     {
-        public override void ICanBeOverridden()
+        public override void CanBeOverridden()
         {
-            base.ICanBeOverridden();
+            base.CanBeOverridden();
         }
     }
 }

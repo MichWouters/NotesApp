@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NotesApp.Models
 {
@@ -11,9 +9,8 @@ namespace NotesApp.Models
         public string Text { get; set; }
         public DateTime Date { get; set; }
 
-        public virtual void ICanBeOverridden()
+        public virtual void CanBeOverridden()
         {
-
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using NotesApp.Models;
 using NotesApp.Repositories;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NotesApp.Views
@@ -8,36 +9,31 @@ namespace NotesApp.Views
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public partial class NoteEntryPage : ContentPage
     {
-        private INoteRepository noteRepository;
+        private readonly INoteRepository _noteRepository;
 
         public int ItemId
         {
-            set
-            {
-                LoadNote(value);
-            }
+            set => LoadNote(value);
         }
 
         public NoteEntryPage()
         {
             InitializeComponent();
-            noteRepository = new NoteRepository();
+            _noteRepository = new NoteRepository();
             BindingContext = new Note();
         }
 
-        private void LoadNote(int id)
+        private async Task LoadNote(int id)
         {
-            BindingContext = noteRepository.GetNote(id);
+            BindingContext = await _noteRepository.GetNote(id);
         }
 
         private async void OnSaveButtonClicked(object sender, EventArgs e)
         {
-            var note = BindingContext as Note;
-            note.Date = DateTime.Now;
-
-            if (note != null)
+            if (BindingContext is Note note)
             {
-                SaveNote(note);
+                note.Date = DateTime.Now;
+                await SaveNote(note);
             }
 
             // Navigate backwards -> Go back to previous screen
@@ -47,20 +43,20 @@ namespace NotesApp.Views
         private async void OnDeleteButtonClicked(object sender, EventArgs e)
         {
             var note = BindingContext as Note;
-            DeleteNote(note);
+            await DeleteNote(note);
 
             // Navigate backwards -> Go back to previous screen
             await Shell.Current.GoToAsync("..");
         }
 
-        public void SaveNote(Note note)
+        public async Task SaveNote(Note note)
         {
-            noteRepository.SaveNote(note);
+            await _noteRepository.SaveNote(note);
         }
 
-        private void DeleteNote(Note note)
+        private async Task DeleteNote(Note note)
         {
-            noteRepository.DeleteNote(note);
+            await _noteRepository.DeleteNote(note);
         }
     }
 }
