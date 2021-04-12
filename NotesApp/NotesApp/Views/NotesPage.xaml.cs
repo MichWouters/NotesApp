@@ -3,6 +3,7 @@ using NotesApp.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,26 +12,26 @@ namespace NotesApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NotesPage : ContentPage
     {
-        private INoteRepository noteRepository;
+        private readonly INoteRepository _noteRepository;
 
         public NotesPage()
         {
             InitializeComponent();
-            noteRepository = new NoteRepository();
+            _noteRepository = new NoteRepository();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            var notes = GetAllNotes();
+            var notes = await GetAllNotes();
 
             // Bind a list of items to a collectionView
             myNotes.ItemsSource = notes;
         }
 
-        private IEnumerable<Note> GetAllNotes()
+        private async Task<IEnumerable<Note>> GetAllNotes()
         {
-            IEnumerable<Note> notes = noteRepository.GetAllNotes();
+            IEnumerable<Note> notes = await _noteRepository.GetAllNotes();
             return notes;
         }
 
