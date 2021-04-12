@@ -18,7 +18,11 @@ namespace NotesApp.Models
 
         public bool CheckCompleted { get; set; }
 
-
         public int GradeOfImportance { get; set; }
+
+        public ToDo()
+        {
+            DateOfCreation = DateTime.Now;
+        }
     }
 }

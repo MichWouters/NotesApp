@@ -6,9 +6,9 @@ namespace NotesApp.Repositories
 {
     public interface IToDoRepository
     {
-        Task<ToDo> GetTodo(int id);
-        Task SaveTodo(ToDo toDo);
-        Task DeleteTodo(ToDo toDo);
-        Task<IEnumerable<ToDo>> GetAllToDos();
+        Task<ToDo> GetTodoAsync(int id);
+        Task SaveTodoAsync(ToDo toDo);
+        Task DeleteTodoAsync(ToDo toDo);
+        Task<IEnumerable<ToDo>> GetAllToDosAsync();
     }
 }

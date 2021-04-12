@@ -7,7 +7,7 @@ namespace NotesApp.Repositories
 {
     public class ToDoRepository : IToDoRepository
     {
-        public async Task<ToDo> GetTodo(int id)
+        public async Task<ToDo> GetTodoAsync(int id)
         {
             using (var dbContext = new NotesContext())
             {
@@ -16,7 +16,7 @@ namespace NotesApp.Repositories
             }
         }
 
-        public async Task SaveTodo(ToDo toDo)
+        public async Task SaveTodoAsync(ToDo toDo)
         {
             using (var dbContext = new NotesContext())
             {
@@ -33,7 +33,7 @@ namespace NotesApp.Repositories
             }
         }
 
-        public async Task DeleteTodo(ToDo toDo)
+        public async Task DeleteTodoAsync(ToDo toDo)
         {
             using (var dbContext = new NotesContext())
             {
@@ -42,7 +42,7 @@ namespace NotesApp.Repositories
             }
         }
 
-        public async Task<IEnumerable<ToDo>> GetAllToDos()
+        public async Task<IEnumerable<ToDo>> GetAllToDosAsync()
         {
             using (var dbContext = new NotesContext())
             {

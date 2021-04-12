@@ -16,7 +16,8 @@
         <StackLayout>
             <Entry x:Name="SearchBar"
                    Text="{Binding NewToDoInputValue}"
-                   Placeholder="Enter a todo"/>
+                   Placeholder="Enter a todo"
+                   ReturnCommand="{Binding AddToDoCommand}"/>
 
             <CollectionView x:Name="MyToDos"
                             Margin="20"

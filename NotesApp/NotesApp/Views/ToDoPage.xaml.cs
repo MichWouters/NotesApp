@@ -1,11 +1,4 @@
-﻿using NotesApp.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,30 +14,7 @@ namespace NotesApp.Views
 
         private void myToDos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            var todos = new List<ToDo>();
-
-            // Create a Note object from each file
-            var files = Directory.EnumerateFiles(App.FolderPath, "*.todo.txt");
-
-            foreach (var file in files)
-            {
-                todos.Add(new ToDo
-                {
-                    FileName = file,
-                    Text = File.ReadAllText(file),
-                    DateOfCreation = File.GetCreationTime(file),
-                });
-            }
-                MyToDos.ItemsSource = todos;
-
-        }
-
 
         private async void AddToDoClicked(object sender, EventArgs e)
         {
@@ -52,6 +22,4 @@ namespace NotesApp.Views
             await Shell.Current.GoToAsync(nameof(ToDoEntryPage));
         }
     }
-
-
 }
