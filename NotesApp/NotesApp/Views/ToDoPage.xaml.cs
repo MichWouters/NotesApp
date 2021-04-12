@@ -41,7 +41,7 @@ namespace NotesApp.Views
                     DateOfCreation = File.GetCreationTime(file),
                 });
             }
-                myToDos.ItemsSource = todos;
+                MyToDos.ItemsSource = todos;
 
         }
 

@@ -1,53 +1,52 @@
-﻿using NotesApp.Models;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
+using NotesApp.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace NotesApp.Repositories
 {
-    public class ToDoRepository
+    public class ToDoRepository : IToDoRepository
     {
-        public ToDo GetTodo(int id)
+        public async Task<ToDo> GetTodo(int id)
         {
             using (var dbContext = new NotesContext())
             {
-                var toDo = dbContext.ToDos.Find(id);
+                var toDo = await dbContext.ToDos.FindAsync(id);
                 return toDo;
             }
         }
 
-        public void SaveTodo(ToDo toDo)
+        public async Task SaveTodo(ToDo toDo)
         {
             using (var dbContext = new NotesContext())
             {
                 if (toDo.Id == 0)
                 {
-                    dbContext.ToDos.Add(toDo);
+                    await dbContext.ToDos.AddAsync(toDo);
                 }
                 else
                 {
                     dbContext.ToDos.Update(toDo);
                 }
 
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
         }
 
-        public void DeleteTodo(ToDo toDo)
+        public async Task DeleteTodo(ToDo toDo)
         {
             using (var dbContext = new NotesContext())
             {
                 dbContext.Remove(toDo);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
         }
 
-        public IEnumerable<ToDo> GetAllToDos()
+        public async Task<IEnumerable<ToDo>> GetAllToDos()
         {
             using (var dbContext = new NotesContext())
             {
-                return dbContext.ToDos.ToList();
+                return await dbContext.ToDos.ToListAsync();
             }
         }
     }
